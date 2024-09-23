@@ -7,8 +7,8 @@ from tqdm import tqdm
 # The usage of the script
 help_message = '''
 🤖 PYBUSTER 🤖
-USAGE > python3 pydir.py -u [URL] -w [WORDLIST PATH] -e [EXTENSION (Optional)]
-EXAMPLE > python3 pydir.py -u https://www.example.com/ -w /home/user/Desktop/wordlists/dict.txt -e php
+USAGE > python3 PyBuster.py -u [URL] -w [WORDLIST PATH] -e [EXTENSION (Optional)]
+EXAMPLE > python3 Pybuster.py -u https://www.example.com/ -w /home/user/Desktop/wordlists/dict.txt -e php
 
 ▼ ARGS ▼
 -h || --help       > Shows the usage of the script
