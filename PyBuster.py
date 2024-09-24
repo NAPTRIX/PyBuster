@@ -2,7 +2,7 @@ import sys
 import requests
 from tqdm import tqdm
 
-# ▼ Inputs, args and variables ▼ 
+# ▼ Inputs, args, and variables ▼
 
 # The usage of the script
 help_message = '''
@@ -24,7 +24,7 @@ args = sys.argv
 
 '''
 This function makes the requests and checks the status code of them.
-If the status code equals 200, 301, or 403, it prints the method, URL, and status code.
+If the status code equals 200, 301, or 403, it prints the method (GET/POST), URL, and status codes.
 '''
 def make_request(url, wordlist, ext):
     try:
@@ -43,11 +43,15 @@ def make_request(url, wordlist, ext):
                 r_get = requests.get(full_url)
                 r_post = requests.post(full_url)
 
-                # Check and print successful or interesting responses
-                if r_get.status_code in [200, 301, 403]:
-                    print(f'\nGET - {full_url} - {r_get.status_code}')
-                if r_post.status_code in [200, 301, 403]:
-                    print(f'\nPOST - {full_url} - {r_post.status_code}')
+                get_status = r_get.status_code if r_get.status_code in [200, 301, 403] else None
+                post_status = r_post.status_code if r_post.status_code in [200, 301, 403] else None
+                
+                if get_status and post_status:
+                    print(f'\nGET/POST - {full_url} - GET: {get_status}, POST: {post_status}')
+                elif get_status:
+                    print(f'\nGET - {full_url} - {get_status}')
+                elif post_status:
+                    print(f'\nPOST - {full_url} - {post_status}')
 
     except FileNotFoundError:
         print(f"Error: Wordlist file '{wordlist}' not found.")
@@ -55,7 +59,7 @@ def make_request(url, wordlist, ext):
         print(f"Error: {e}")
 
 
-# parse arguments and invoke the request function
+# Parse arguments and invoke the request function
 def main():
     if len(args) == 1:
         print(help_message)
